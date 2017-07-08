@@ -1,0 +1,94 @@
+	Name	Expires_On__c Manager__c  	Name__c   	Number_of_positions__c
+
+
+/////////////////////////////////////////////////////////////////////////
+Job__c jobobj= new Job__c();
+
+jobobj.Name='sObject Training';
+jobobj.Name__c='Jr. manager';
+jobobj.Manager__c='Dilip Patil'///error::System.StringException: Invalid id: Dilip Patil
+jobobj.Number_of_positions__c= 6;
+jobobj.Expires_On__c=date.parse('30/06/2017')  ;
+insert jobObj;
+system.debug(jobObj); 
+///////////////////////////////////////////
+
+insert record 1
+List<Account> acc_bi = new List<Account>();
+acc_bi.add(new Account(Name='fisrt trgr7'));
+insert acc_bi;
+////////
+insert record 2
+Account[] accts = new List<Account>();
+
+for(Integer i=1;i<6;i++) {
+
+    Account a = new Account(Name='first' + i);
+    insert a;
+
+}
+////////////////////////////////////////////////////
+update record
+
+try {
+
+    // Query for the contact, which has been associated with an account.
+
+    Account acc = [SELECT Name
+
+                    FROM Account
+
+                    WHERE Name = 'fisrt trgr7' 
+
+                     ];
+
+ acc.Name='trgr7to9';
+    
+    update acc;
+
+
+} catch(Exception e) {
+
+    System.debug('An unexpected error has occurred: ' + e.getMessage());
+
+}
+/////////////////////////////////////////////////
+
+deleting record
+try {
+
+    // Query for the contact, which has been associated with an account.
+
+    Account acc = [SELECT Name
+
+                    FROM Account
+
+                    WHERE Name = 'fisrt trgr5' 
+
+                     ];
+
+
+    
+   delete acc;
+
+} catch(Exception e) {
+
+    System.debug('An unexpected error has occurred: ' + e.getMessage());
+
+}
+
+}
+
+////////////////////////////////////////////////////////////////////////////
+undelete
+Account acc = [SELECT Id, Name FROM Account WHERE Name = 'first1' ALL ROWS];
+
+try {
+
+    undelete acc;
+
+} catch (DmlException e) {
+
+    // Process exception here
+
+}
